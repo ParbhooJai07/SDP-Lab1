@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterAll } from 'vitest'
 import { PrismaClient } from '../generated/prisma/client'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
@@ -8,6 +8,10 @@ const prisma = new PrismaClient({ adapter })
 describe('task archiving', () => {
   beforeEach(async () => {
     await prisma.task.deleteMany()
+  })
+
+  afterAll(async () => {
+    await prisma.$disconnect()
   })
 
   it('archives a task so it no longer appears in the active list', async () => {
