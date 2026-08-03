@@ -53,3 +53,13 @@ export async function updateTask(id: number, formData: FormData) {
   revalidatePath('/')
   redirect('/')
 }
+
+export async function archiveTask(id: number) {
+  await prisma.task.update({
+    where: { id },
+    data: { archived: true },
+  })
+
+  revalidatePath('/')
+  revalidatePath('/archived')
+}

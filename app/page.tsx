@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { isOverdue } from '@/lib/task-helpers'
 import type { Task } from '../generated/prisma/client'
+import { archiveTask } from '@/app/actions'
 
 const SORT_OPTIONS = ['topic', 'status', 'dueDate'] as const
 type SortOption = (typeof SORT_OPTIONS)[number]
@@ -46,7 +47,7 @@ export default async function Home({
     <main>
       <h1>Tasks</h1>
       <Link href="/new">+ New Task</Link>
-
+      <Link href="/archived">View Archived</Link>
       <nav>
         Sort by:{' '}
         {SORT_OPTIONS.map((option) => (
@@ -70,6 +71,9 @@ export default async function Home({
             <div>Status: {task.status}</div>
             <div>Due: {new Date(task.dueDate).toLocaleDateString()}</div>
             <Link href={`/tasks/${task.id}/edit`}>Edit</Link>
+            <form action={archiveTask.bind(null, task.id)}>
+              <button type="submit">Archive</button>
+            </form>
           </li>
         ))}
       </ul>
