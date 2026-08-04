@@ -71,3 +71,7 @@ at `prisma/test.db`, created fresh on each run. This does not affect
 
 Stop the dev server with `Ctrl+C`. Data persists in `prisma/dev.db`, so
 running `npm run dev` again shows the same tasks as before.
+
+## AI Declaration
+
+This document was drafted with assistance from Claude-Web [Claude Sonnet 5]. The author reviewed and edited the final content.
